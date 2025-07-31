@@ -36,7 +36,9 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.battilana.appsolicitudbattilana.R
@@ -76,13 +78,19 @@ fun Login(modifier: Modifier = Modifier) {
                 .fillMaxWidth(),
             contentAlignment = Alignment.TopCenter
         ){
-            Column (Modifier) {
-                TextField("", onValueChange = {}, label = {Text("Usuario")})
-                Spacer(Modifier.height(20.dp))
-                TextField("", onValueChange = {}, label = {Text("Contraseña")})
-                Spacer(Modifier.height(50.dp))
-                Button(onClick = {}) {
-                    Text("Iniciar sesion")
+            Box (Modifier.fillMaxWidth()) {
+                Column (Modifier.align(Alignment.Center)) {
+                    TextField("", onValueChange = {}, label = {Text("Usuario")})
+                    Spacer(Modifier.height(20.dp))
+                    TextField("", onValueChange = {}, label = {Text("Contraseña")})
+                    Spacer(Modifier.height(50.dp))
+                    Button(onClick = {}, Modifier
+                        .align(Alignment.CenterHorizontally)
+                        .width(200.dp)
+                        .height(60.dp)
+                    ) {
+                        Text("Iniciar sesion", fontSize = 18.sp)
+                    }
                 }
             }
 
