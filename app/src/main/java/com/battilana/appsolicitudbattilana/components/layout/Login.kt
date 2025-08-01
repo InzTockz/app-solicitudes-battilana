@@ -44,56 +44,74 @@ import androidx.compose.ui.unit.sp
 import com.battilana.appsolicitudbattilana.R
 
 @Composable
-fun InicioSesion() {
-    var user by remember { mutableStateOf("") }
+fun InicioSesion(modifier: Modifier) {
+    var user by remember { mutableStateOf(value = "") }
     var password by remember { mutableStateOf("") }
+    Login(
+        modifier = modifier, user = user, onUserChange = { user = it },
+        password = password, onPasswordChange = { password = it })
 }
 
-@Preview(showBackground = true)
 @Composable
-fun Login(modifier: Modifier = Modifier) {
-    Column (modifier = modifier.fillMaxSize()) {
+fun Login(
+    modifier: Modifier,
+    user: String,
+    onUserChange: (String) -> Unit,
+    password: String,
+    onPasswordChange: (String) -> Unit
+) {
+    Column(modifier = modifier
+        .fillMaxSize()
+        .verticalScroll(rememberScrollState())) {
         Box(
             modifier = Modifier
-                .background(Color.Black)
-                .weight(3.5f)
+                //.background(Color.Black)
+                .weight(3f)
                 .fillMaxWidth(),
             contentAlignment = Alignment.Center
-        ){
+        ) {
             Image(
                 painter = painterResource(id = R.drawable.logo_battilana),
                 contentDescription = "Battilogo",
                 modifier = Modifier
-                    .size(200.dp)
+                    .size(250.dp)
                     .padding(20.dp)
-                    .clip(RoundedCornerShape( 40)),
+                    .clip(RoundedCornerShape(40)),
                 alignment = Alignment.Center,
-                contentScale = ContentScale.FillBounds
+                contentScale = ContentScale.Crop
             )
         }
         Box(
             modifier = Modifier
-                .background(Color.Black)
-                .weight(6.5f)
+                //.background(Color.Black)
+                .weight(7f)
                 .fillMaxWidth(),
             contentAlignment = Alignment.TopCenter
-        ){
-            Box (Modifier.fillMaxWidth()) {
-                Column (Modifier.align(Alignment.Center)) {
-                    TextField("", onValueChange = {}, label = {Text("Usuario")})
+        ) {
+            Box(Modifier.fillMaxWidth()) {
+                Column(Modifier.align(Alignment.Center)) {
+                    TextField(
+                        user,
+                        onValueChange = { onUserChange(it) },
+                        label = { Text("Usuario") },
+                        modifier = Modifier.clip(RoundedCornerShape(15)))
                     Spacer(Modifier.height(20.dp))
-                    TextField("", onValueChange = {}, label = {Text("Contraseña")})
+                    TextField(
+                        password,
+                        onValueChange = { onPasswordChange(it) },
+                        label = { Text("Contraseña") },
+                        modifier = Modifier.clip(RoundedCornerShape(15)))
                     Spacer(Modifier.height(50.dp))
-                    Button(onClick = {}, Modifier
-                        .align(Alignment.CenterHorizontally)
-                        .width(200.dp)
-                        .height(60.dp)
+                    Button(
+                        onClick = {}, Modifier
+                            .align(Alignment.CenterHorizontally)
+                            .width(200.dp)
+                            .height(60.dp)
                     ) {
                         Text("Iniciar sesion", fontSize = 18.sp)
                     }
                 }
             }
-
         }
     }
 }

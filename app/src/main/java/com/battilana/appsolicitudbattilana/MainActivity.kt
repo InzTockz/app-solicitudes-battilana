@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.battilana.appsolicitudbattilana.components.layout.InicioSesion
 import com.battilana.appsolicitudbattilana.components.layout.Login
 import com.battilana.appsolicitudbattilana.ui.theme.AppSolicitudBattilanaTheme
 
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                Login(Modifier.padding(innerPadding))
+                InicioSesion(Modifier.padding(innerPadding))
             }
         }
     }
