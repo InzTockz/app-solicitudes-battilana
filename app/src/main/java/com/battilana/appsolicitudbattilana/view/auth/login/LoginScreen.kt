@@ -34,13 +34,17 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.battilana.appsolicitudbattilana.R
 
 @Composable
-fun LoginScreen(){
+fun LoginScreen(loginViewModel: LoginviewModel = viewModel()){
 
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("")}
+//    var username by remember { mutableStateOf("") }
+//    var password by remember { mutableStateOf("")}
+
+    val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold { innerPadding ->
         Column (
@@ -68,8 +72,8 @@ fun LoginScreen(){
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = username,
-                onValueChange = { username = it},
+                value = uiState.username,
+                onValueChange = { loginViewModel.onUsernameChange(it)},
                 shape = RoundedCornerShape(35),
                 label = {
                     Text(
@@ -81,8 +85,8 @@ fun LoginScreen(){
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = password,
-                onValueChange = { password = it},
+                value = uiState.password,
+                onValueChange = { loginViewModel.onPasswordChange(it)},
                 shape = RoundedCornerShape(35),
                 label = {
                     Text(
@@ -94,7 +98,8 @@ fun LoginScreen(){
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = {}
+                onClick = {},
+                enabled = uiState.isEnabledLogin
             ) {
                 Text(
                     modifier = Modifier
