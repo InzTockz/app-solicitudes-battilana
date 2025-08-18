@@ -4,6 +4,7 @@ import android.widget.HorizontalScrollView
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.ScrollState
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.gestures.ScrollableState
 import androidx.compose.foundation.gestures.scrollable
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -37,8 +39,8 @@ import com.battilana.appsolicitudbattilana.R
 @Composable
 fun LoginScreen(){
 
-    var usuario by remember { mutableStateOf("") }
-    var contraseña by remember { mutableStateOf("")}
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("")}
 
     Scaffold { innerPadding ->
         Column (
@@ -52,9 +54,11 @@ fun LoginScreen(){
         ) {
             Text(
                 modifier = Modifier
-                    .padding(top = 30.dp),
-                fontSize = 30.sp,
-                text = "Solicitudes Battilana"
+                    .padding(top = 40.dp),
+                fontSize = 35.sp,
+                text = "Solicitudes Battilana",
+                color = Color(0xFFFF6600),
+                fontWeight = FontWeight.Bold
             )
             Image(
                 painter = painterResource(id = R.drawable.logo_battilana),
@@ -64,8 +68,8 @@ fun LoginScreen(){
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = usuario,
-                onValueChange = { usuario = it},
+                value = username,
+                onValueChange = { username = it},
                 shape = RoundedCornerShape(35),
                 label = {
                     Text(
@@ -77,8 +81,8 @@ fun LoginScreen(){
             OutlinedTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = contraseña,
-                onValueChange = { contraseña = it},
+                value = password,
+                onValueChange = { password = it},
                 shape = RoundedCornerShape(35),
                 label = {
                     Text(
