@@ -8,6 +8,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.battilana.appsolicitudbattilana.view.auth.login.LoginScreen
+import com.battilana.appsolicitudbattilana.view.auth.pedido.PedidoScreen
 import com.battilana.appsolicitudbattilana.view.auth.register.RegisterScreen
 
 @Composable
@@ -16,10 +17,16 @@ fun NavigationWrapper(){
 
     NavHost(navController = navigationController, startDestination = Login){
         composable<Login> {
-            LoginScreen()
+            LoginScreen(navigateToPedido = { navigationController.navigate(Pedido)})
         }
         composable<Register> {
             RegisterScreen()
+        }
+
+        composable<Pedido> {
+            PedidoScreen(backToLogin = {
+                navigationController.popBackStack()
+            })
         }
     }
 }

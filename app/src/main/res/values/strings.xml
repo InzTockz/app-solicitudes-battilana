@@ -1,3 +1,21 @@
 <resources>
+
+    <!-- LoginScreen-->
     <string name="app_name">app solicitud battilana</string>
+    <string name="login_screen_header_title">Solicitudes Battilana</string>
+    <string name="login_screen_textfield_username">Usuario</string>
+    <string name="login_screen_textfield_password">Contraseña</string>
+    <string name="login_screen_button_login">Iniciar sesion</string>
+    <string name="login_screen_footer_text_signature">Developed by FHHF</string>
+
+    <!-- PedidoScreen -->
+    <string name="pedido_screen_header_title">Registrar Pedido</string>
+    <string name="pedido_screen_dropdown_articulos">Articulos</string>
+    <string name="pedido_screen_textfield_cantidad">Cantidad</string>
+    <string name="pedido_screen_textfield_stock">0.0</string>
+    <string name="pedido_screen_textfield_comentario">Comentario sobre el producto</string>
+    <string name="pedido_screen_button_agregar_producto">Agregar Producto</string>
+    <string name="pedido_screen_button_registrar_pedido">Registrar pedido</string>
+    <string name="pedido_screen_button_limpiar">Limpiar</string>
+    <string name="pedido_screen_button_cancelar">Cancelar</string>
 </resources>

@@ -30,6 +30,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
@@ -39,7 +40,10 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.battilana.appsolicitudbattilana.R
 
 @Composable
-fun LoginScreen(loginViewModel: LoginviewModel = viewModel()){
+fun LoginScreen(
+    loginViewModel: LoginviewModel = viewModel(),
+    navigateToPedido:() -> Unit
+){
 
 //    var username by remember { mutableStateOf("") }
 //    var password by remember { mutableStateOf("")}
@@ -60,7 +64,7 @@ fun LoginScreen(loginViewModel: LoginviewModel = viewModel()){
                 modifier = Modifier
                     .padding(top = 40.dp),
                 fontSize = 35.sp,
-                text = "Solicitudes Battilana",
+                text = stringResource(R.string.login_screen_header_title),
                 color = Color(0xFFFF6600),
                 fontWeight = FontWeight.Bold
             )
@@ -77,7 +81,7 @@ fun LoginScreen(loginViewModel: LoginviewModel = viewModel()){
                 shape = RoundedCornerShape(35),
                 label = {
                     Text(
-                        text = "Usuario"
+                        text = stringResource(R.string.login_screen_textfield_username)
                     )
                 }
             )
@@ -90,7 +94,7 @@ fun LoginScreen(loginViewModel: LoginviewModel = viewModel()){
                 shape = RoundedCornerShape(35),
                 label = {
                     Text(
-                        text = "Contraseña"
+                        text = stringResource(R.string.login_screen_textfield_password)
                     )
                 }
             )
@@ -98,17 +102,17 @@ fun LoginScreen(loginViewModel: LoginviewModel = viewModel()){
             Button(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = {},
+                onClick = { navigateToPedido() },
                 enabled = uiState.isEnabledLogin
             ) {
                 Text(
                     modifier = Modifier
                         .padding(vertical = 8.dp),
-                    text = "Iniciar Sesion"
+                    text = stringResource(R.string.login_screen_button_login)
                 )
             }
             Spacer(Modifier.weight(1f))
-            Text("Developed by FHHF")
+            Text(stringResource(R.string.login_screen_footer_text_signature))
         }
     }
 }
