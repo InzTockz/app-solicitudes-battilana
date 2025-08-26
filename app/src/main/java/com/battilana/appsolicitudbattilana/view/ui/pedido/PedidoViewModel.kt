@@ -1,4 +1,4 @@
-package com.battilana.appsolicitudbattilana.view.auth.pedido
+package com.battilana.appsolicitudbattilana.view.ui.pedido
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow

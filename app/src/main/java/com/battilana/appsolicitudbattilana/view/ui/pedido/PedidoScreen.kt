@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.battilana.appsolicitudbattilana.view.auth.pedido
+package com.battilana.appsolicitudbattilana.view.ui.pedido
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -32,10 +32,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.ViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.battilana.appsolicitudbattilana.R
+import com.battilana.appsolicitudbattilana.view.core.components.BattiButton
+import com.battilana.appsolicitudbattilana.view.core.components.BattiOutButton
+import com.battilana.appsolicitudbattilana.view.core.components.BattiTextButton
+import com.battilana.appsolicitudbattilana.view.core.components.BattiTextField
+import com.battilana.appsolicitudbattilana.view.core.components.BattiTextTitle
 
 @Composable
 fun PedidoScreen(
@@ -56,11 +60,8 @@ fun PedidoScreen(
         )
         {
             //Titulo o encabezado
-            Text(
-                modifier = Modifier
-                    .padding(top = 15.dp),
+            BattiTextTitle(
                 text = stringResource(id = R.string.pedido_screen_header_title),
-                style = MaterialTheme.typography.headlineLarge
             )
             Spacer(Modifier.height(10.dp))
             //Combo box de los productos battilana
@@ -107,69 +108,59 @@ fun PedidoScreen(
             )
             {
                 //Caja para la cantidad
-                OutlinedTextField(
-                    modifier = Modifier
-                        .weight(1f),
+                BattiTextField(
+                    modifier = Modifier.weight(1f),
                     value = uiStatePedido.cantidad,
                     onValueChange = { pedidoViewModel.onCantidadChange( cantidad = it)},
-                    shape = RoundedCornerShape(25),
-                    label = { Text(text = stringResource(id = R.string.pedido_screen_textfield_cantidad))}
+                    text = stringResource(id = R.string.pedido_screen_textfield_cantidad)
                 )
                 Spacer(Modifier.width(5.dp))
                 //Caja para mostrar el stock disponible
-                OutlinedTextField(
-                    modifier = Modifier
-                        .weight(0.5f),
+                BattiTextField(
+                    modifier = Modifier.weight(0.5f),
                     value = "",
                     onValueChange = {},
-                    shape = RoundedCornerShape(25),
-                    label = { Text(text = stringResource(id = R.string.pedido_screen_textfield_stock))}
+                    text = stringResource(id = R.string.pedido_screen_textfield_stock)
                 )
             }
             Spacer(Modifier.height(5.dp))
             //Caja de Comentario
-            OutlinedTextField(
+            BattiTextField(
                 modifier = Modifier.fillMaxWidth(),
                 value = "",
                 onValueChange = {},
-                shape = RoundedCornerShape(25),
-                label = { Text(text = stringResource(id = R.string.pedido_screen_textfield_comentario))}
+                text = stringResource(id = R.string.pedido_screen_textfield_comentario)
             )
-            Spacer(Modifier.height(5.dp))
+            Spacer(Modifier.height(10.dp))
             //Boton para agregar productos
-            Button(
-                onClick = {}
-            ) { Text(text = stringResource(id = R.string.pedido_screen_button_agregar_producto))}
+            BattiButton(
+                onClick = {},
+                text = stringResource(id = R.string.pedido_screen_button_agregar_producto),
+                enabled = false
+            )
             //Boton de registro articulo unidad
             Spacer(Modifier.weight(1f))
-            Button(
+            BattiButton(
                 modifier = Modifier
                     .fillMaxWidth(),
                 onClick = {},
+                text = stringResource(id = R.string.pedido_screen_button_registrar_pedido),
+                enabled = false
             )
-            {
-                Text(text = stringResource(id = R.string.pedido_screen_button_registrar_pedido))
-            }
+            Spacer(Modifier.padding(bottom = 5.dp))
             Row {
-                OutlinedButton(
-                    modifier = Modifier
-                        .weight(1f),
-                    onClick = {}
+                BattiOutButton(
+                    modifier = Modifier.weight(1f),
+                    onClick = {},
+                    text = stringResource(id = R.string.pedido_screen_button_limpiar)
                 )
-                {
-                    Text(text = stringResource(id = R.string.pedido_screen_button_limpiar))
-                }
                 Spacer(Modifier.width(10.dp))
-                OutlinedButton(
+                BattiOutButton(
                     modifier = Modifier
                         .weight(1f),
-                    onClick = {}
+                    onClick = {},
+                    text = stringResource(id = R.string.pedido_screen_button_cancelar)
                 )
-                {
-                    Text(
-                        text = stringResource(id = R.string.pedido_screen_button_cancelar)
-                    )
-                }
             }
             Button(
                 onClick = {backToLogin()}

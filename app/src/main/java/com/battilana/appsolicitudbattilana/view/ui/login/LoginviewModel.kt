@@ -1,4 +1,4 @@
-package com.battilana.appsolicitudbattilana.view.auth.login
+package com.battilana.appsolicitudbattilana.view.ui.login
 
 import androidx.lifecycle.ViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
