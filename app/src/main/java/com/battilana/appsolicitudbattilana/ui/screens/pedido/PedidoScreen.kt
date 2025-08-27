@@ -11,8 +11,11 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
+import androidx.compose.material3.Card
 import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
@@ -22,6 +25,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,22 +34,28 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.viewmodel.compose.viewModel
 import com.battilana.appsolicitudbattilana.R
 import com.battilana.appsolicitudbattilana.view.core.components.BattiButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiOutButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiTextField
 import com.battilana.appsolicitudbattilana.view.core.components.BattiTextTitle
 
+
 @Composable
 fun PedidoScreen(
     backToLogin:() -> Unit,
-    pedidoViewModel: PedidoViewModel = viewModel()
+    pedidoViewModel: PedidoViewModel = hiltViewModel()
 ) {
     var isDropDownEnabled by remember { mutableStateOf(false) }
     val uiStatePedido by pedidoViewModel.uiState.collectAsStateWithLifecycle()
 
+    val usuarios by pedidoViewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(Unit) {
+        pedidoViewModel.getListado()
+    }
     Scaffold (
     ) { innerPadding ->
         Column(
@@ -107,7 +117,7 @@ fun PedidoScreen(
                 //Caja para la cantidad
                 BattiTextField(
                     modifier = Modifier.weight(1f),
-                    value = uiStatePedido.cantidad,
+                    value = "",
                     onValueChange = { pedidoViewModel.onCantidadChange( cantidad = it)},
                     text = stringResource(id = R.string.pedido_screen_textfield_cantidad)
                 )
@@ -135,6 +145,23 @@ fun PedidoScreen(
                 text = stringResource(id = R.string.pedido_screen_button_agregar_producto),
                 enabled = false
             )
+
+            //PEQUEÑO CORTE
+            LazyColumn {
+                items(usuarios){
+                    Card {
+                        Text(it.names)
+                        Text(it.subnames)
+                        Text(it.password)
+                        Text(" "+it.idUsuario)
+                        Text(it.username)
+                        Text(""+it.createAt)
+                        Text(""+it.status)
+                        Text(""+it.roles)
+                    }
+                }
+            }
+
             //Boton de registro articulo unidad
             Spacer(Modifier.weight(1f))
             BattiButton(
