@@ -1,6 +1,6 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.battilana.appsolicitudbattilana.view.ui.pedido
+package com.battilana.appsolicitudbattilana.ui.screens.pedido
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,9 +17,7 @@ import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.MenuAnchorType
-import androidx.compose.material3.OutlinedButton
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -37,7 +35,6 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.battilana.appsolicitudbattilana.R
 import com.battilana.appsolicitudbattilana.view.core.components.BattiButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiOutButton
-import com.battilana.appsolicitudbattilana.view.core.components.BattiTextButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiTextField
 import com.battilana.appsolicitudbattilana.view.core.components.BattiTextTitle
 

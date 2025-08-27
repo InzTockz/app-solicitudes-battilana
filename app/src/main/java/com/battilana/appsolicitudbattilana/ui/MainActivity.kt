@@ -1,4 +1,4 @@
-package com.battilana.appsolicitudbattilana
+package com.battilana.appsolicitudbattilana.ui
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
