@@ -182,14 +182,9 @@ fun PedidoScreen(
                 BattiOutButton(
                     modifier = Modifier
                         .weight(1f),
-                    onClick = {},
+                    onClick = {backToLogin()},
                     text = stringResource(id = R.string.pedido_screen_button_cancelar)
                 )
-            }
-            Button(
-                onClick = {backToLogin()}
-            ) {
-                Text("Volver al futuro")
             }
         }
     }
