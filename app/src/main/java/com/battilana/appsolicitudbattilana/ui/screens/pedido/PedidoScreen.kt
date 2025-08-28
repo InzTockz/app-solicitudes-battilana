@@ -37,6 +37,7 @@ import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.battilana.appsolicitudbattilana.R
+import com.battilana.appsolicitudbattilana.ui.screens.login.LoginviewModel
 import com.battilana.appsolicitudbattilana.view.core.components.BattiButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiOutButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiTextField
@@ -45,8 +46,9 @@ import com.battilana.appsolicitudbattilana.view.core.components.BattiTextTitle
 
 @Composable
 fun PedidoScreen(
-    backToLogin:() -> Unit,
-    pedidoViewModel: PedidoViewModel = hiltViewModel()
+    backToLogin: () -> Unit,
+    pedidoViewModel: PedidoViewModel = hiltViewModel(),
+    loginViewModel: LoginviewModel = hiltViewModel()
 ) {
     var isDropDownEnabled by remember { mutableStateOf(false) }
     val uiStatePedido by pedidoViewModel.uiState.collectAsStateWithLifecycle()
@@ -56,7 +58,7 @@ fun PedidoScreen(
     LaunchedEffect(Unit) {
         pedidoViewModel.getListado()
     }
-    Scaffold (
+    Scaffold(
     ) { innerPadding ->
         Column(
             modifier = Modifier
@@ -72,7 +74,9 @@ fun PedidoScreen(
             )
             Spacer(Modifier.height(10.dp))
             //Combo box de los productos battilana
-            ExposedDropdownMenuBox( expanded = isDropDownEnabled, onExpandedChange = { isDropDownEnabled = it }
+            ExposedDropdownMenuBox(
+                expanded = isDropDownEnabled,
+                onExpandedChange = { isDropDownEnabled = it }
             )
             {
                 OutlinedTextField(
@@ -83,8 +87,8 @@ fun PedidoScreen(
 
                     value = "",
                     shape = RoundedCornerShape(25),
-                    onValueChange = { isDropDownEnabled = !isDropDownEnabled},
-                    label = { Text( text = stringResource(id = R.string.pedido_screen_dropdown_articulos)) },
+                    onValueChange = { isDropDownEnabled = !isDropDownEnabled },
+                    label = { Text(text = stringResource(id = R.string.pedido_screen_dropdown_articulos)) },
 
                     trailingIcon = {
                         ExposedDropdownMenuDefaults.TrailingIcon(
@@ -118,7 +122,7 @@ fun PedidoScreen(
                 BattiTextField(
                     modifier = Modifier.weight(1f),
                     value = "",
-                    onValueChange = { pedidoViewModel.onCantidadChange( cantidad = it)},
+                    onValueChange = { pedidoViewModel.onCantidadChange(cantidad = it) },
                     text = stringResource(id = R.string.pedido_screen_textfield_cantidad)
                 )
                 Spacer(Modifier.width(5.dp))
@@ -148,16 +152,16 @@ fun PedidoScreen(
 
             //PEQUEÑO CORTE
             LazyColumn {
-                items(usuarios){
+                items(usuarios) {
                     Card {
                         Text(it.names)
                         Text(it.subnames)
                         Text(it.password)
-                        Text(" "+it.idUsuario)
+                        Text(" " + it.idUsuario)
                         Text(it.username)
-                        Text(""+it.createAt)
-                        Text(""+it.status)
-                        Text(""+it.roles)
+                        Text("" + it.createAt)
+                        Text("" + it.status)
+                        Text("" + it.roles)
                     }
                 }
             }
@@ -182,7 +186,10 @@ fun PedidoScreen(
                 BattiOutButton(
                     modifier = Modifier
                         .weight(1f),
-                    onClick = {backToLogin()},
+                    onClick = {
+                        loginViewModel.logout()
+                        backToLogin()
+                    },
                     text = stringResource(id = R.string.pedido_screen_button_cancelar)
                 )
             }

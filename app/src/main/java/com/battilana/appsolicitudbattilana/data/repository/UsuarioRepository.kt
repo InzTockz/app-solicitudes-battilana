@@ -11,8 +11,9 @@ class UsuarioRepository @Inject constructor(private val usuarioApi: UsuarioApi) 
     suspend fun getUsuarios(): List<UsuarioDto> = usuarioApi.doListUsuario()
 
 
-    suspend fun doLogin(loginRequest: LoginRequest): Result<LoginResponse>{
-        val response = usuarioApi.doLogin(loginRequest)
+    suspend fun doLogin(username:String, password:String): Result<LoginResponse>{
+        val request = LoginRequest(username, password)
+        val response = usuarioApi.doLogin(request)
         return Result.success(response)
     }
 }

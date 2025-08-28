@@ -3,6 +3,7 @@ package com.battilana.appsolicitudbattilana.ui.screens.pedido
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.battilana.appsolicitudbattilana.data.datasource.SessionManager
 import com.battilana.appsolicitudbattilana.data.dto.UsuarioDto
 import com.battilana.appsolicitudbattilana.data.repository.UsuarioRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,12 +15,11 @@ import javax.inject.Inject
 
 @HiltViewModel
 class PedidoViewModel @Inject constructor(
+    private val sessionManager: SessionManager,
     private val repo: UsuarioRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow<List<UsuarioDto>>(emptyList())
     val uiState: StateFlow<List<UsuarioDto>> = _uiState
-    //private val _uiState = MutableStateFlow(PedidosUiState())
-    //val uiState: StateFlow<PedidosUiState> = _uiState
 
     fun onCantidadChange(cantidad: String) {
         //_uiState.update { state ->
@@ -29,6 +29,14 @@ class PedidoViewModel @Inject constructor(
     fun getListado(){
         viewModelScope.launch {
             _uiState.value = repo.getUsuarios()
+        }
+    }
+
+    fun logout(){
+        viewModelScope.launch {
+            Log.i("NOTICIA!!!!!!!!!:", "Boton presionado")
+            sessionManager.clearSession()
+            //_uiState.update { it.copy(isLoggedIn = false, login = null) }
         }
     }
 }

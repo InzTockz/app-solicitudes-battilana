@@ -14,7 +14,12 @@ fun NavigationWrapper(){
 
     NavHost(navController = navigationController, startDestination = Login){
         composable<Login> {
-            LoginScreen(navigateToPedido = { navigationController.navigate(Pedido)})
+            LoginScreen(navigateToPedido = {
+                navigationController.navigate(Pedido){
+                    popUpTo(Login) {inclusive = true}
+                    launchSingleTop = true
+                }
+            })
         }
         composable<Register> {
             RegisterScreen()
@@ -22,7 +27,10 @@ fun NavigationWrapper(){
 
         composable<Pedido> {
             PedidoScreen(backToLogin = {
-                navigationController.popBackStack()
+                navigationController.navigate(Login) {
+                    popUpTo(Pedido) { inclusive = true}
+                    launchSingleTop = true
+                }
             })
         }
     }

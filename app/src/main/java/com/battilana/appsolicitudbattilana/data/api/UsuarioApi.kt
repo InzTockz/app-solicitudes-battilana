@@ -9,7 +9,7 @@ import retrofit2.http.POST
 
 interface UsuarioApi {
 
-    @POST("api/v1/usuario/login")
+    @POST("api/v1/usuario/userLogin")
     suspend fun doLogin(@Body loginRequest: LoginRequest): LoginResponse
 
     @GET("api/v1/usuario/list")

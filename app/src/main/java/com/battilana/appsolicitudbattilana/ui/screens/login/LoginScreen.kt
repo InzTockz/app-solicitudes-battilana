@@ -12,9 +12,16 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -23,25 +30,31 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.battilana.appsolicitudbattilana.R
 import com.battilana.appsolicitudbattilana.view.core.components.BattiButton
 import com.battilana.appsolicitudbattilana.view.core.components.BattiTextField
+import kotlinx.coroutines.launch
 
 @Composable
 fun LoginScreen(
-    loginViewModel: LoginviewModel = viewModel(),
-    navigateToPedido:() -> Unit
-){
-
-//    var username by remember { mutableStateOf("") }
-//    var password by remember { mutableStateOf("")}
+    loginViewModel: LoginviewModel = hiltViewModel(),
+    navigateToPedido: () -> Unit
+) {
 
     val uiState by loginViewModel.uiState.collectAsStateWithLifecycle()
+    var username by remember { mutableStateOf("") }
+    var password by remember { mutableStateOf("") }
 
-    Scaffold { innerPadding ->
-        Column (
+    val snackBarHostState = remember { SnackbarHostState() }
+    val scope = rememberCoroutineScope()
+
+    Scaffold (
+        snackbarHost = { SnackbarHost(hostState = snackBarHostState) }
+    ) { innerPadding ->
+        Column(
             modifier = Modifier
                 .background(Color.White)
                 .fillMaxSize()
@@ -66,28 +79,51 @@ fun LoginScreen(
             BattiTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = uiState.username,
-                onValueChange = { loginViewModel.onUsernameChange(it)},
+                value = username,
+                onValueChange = {
+                    username = it
+                    loginViewModel.verifyLogin(username, password)
+                },
                 text = stringResource(R.string.login_screen_textfield_username)
             )
             Spacer(Modifier.height(10.dp))
             BattiTextField(
                 modifier = Modifier
                     .fillMaxWidth(),
-                value = uiState.password,
-                onValueChange = { loginViewModel.onPasswordChange(it)},
+                value = password,
+                onValueChange = {
+                    password = it
+                    loginViewModel.verifyLogin(username, password)
+                },
                 text = stringResource(R.string.login_screen_textfield_password)
             )
             Spacer(Modifier.height(15.dp))
             BattiButton(
                 modifier = Modifier
                     .fillMaxWidth(),
-                onClick = { navigateToPedido() },
-                enabled = uiState.isEnabledLogin,
-                text = stringResource(R.string.login_screen_button_login)
+                onClick = {
+                    loginViewModel.onLogin(username, password)
+                },
+                enabled = uiState.isEnabledLogin && !uiState.isLoading,
+                text = if(uiState.isLoading) "Cargando..." else stringResource(R.string.login_screen_button_login)
             )
             Spacer(Modifier.weight(1f))
             Text(stringResource(R.string.login_screen_footer_text_signature))
+        }
+    }
+
+    LaunchedEffect(uiState.error) {
+        uiState.error?.let {
+            scope.launch {
+                snackBarHostState.showSnackbar(it)
+                loginViewModel.clearError()
+            }
+        }
+    }
+
+    LaunchedEffect(uiState.isLoggedIn) {
+        if (uiState.isLoggedIn && uiState.login != null) {
+            navigateToPedido()
         }
     }
 }
