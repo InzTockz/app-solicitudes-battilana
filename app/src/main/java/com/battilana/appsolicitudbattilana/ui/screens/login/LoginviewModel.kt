@@ -1,18 +1,21 @@
 package com.battilana.appsolicitudbattilana.ui.screens.login
 
+import android.os.UserManager
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.navigation.navOptions
 import com.battilana.appsolicitudbattilana.data.datasource.SessionManager
 import com.battilana.appsolicitudbattilana.data.dto.LoginResponse
-import com.battilana.appsolicitudbattilana.data.model.UserSession
+import com.battilana.appsolicitudbattilana.data.datasource.UserSession
 import com.battilana.appsolicitudbattilana.data.repository.UsuarioRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.firstOrNull
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
 
 @HiltViewModel

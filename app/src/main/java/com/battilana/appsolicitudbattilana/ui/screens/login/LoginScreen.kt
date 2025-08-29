@@ -109,6 +109,7 @@ fun LoginScreen(
             )
             Spacer(Modifier.weight(1f))
             Text(stringResource(R.string.login_screen_footer_text_signature))
+
         }
     }
 
