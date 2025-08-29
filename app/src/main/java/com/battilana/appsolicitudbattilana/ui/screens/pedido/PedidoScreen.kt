@@ -51,7 +51,6 @@ fun PedidoScreen(
     loginViewModel: LoginviewModel = hiltViewModel()
 ) {
     var isDropDownEnabled by remember { mutableStateOf(false) }
-    val uiStatePedido by pedidoViewModel.uiState.collectAsStateWithLifecycle()
 
     val usuarios by pedidoViewModel.uiState.collectAsStateWithLifecycle()
 

@@ -123,7 +123,7 @@ fun LoginScreen(
     }
 
     LaunchedEffect(uiState.isLoggedIn) {
-        if (uiState.isLoggedIn && uiState.login != null) {
+        if (uiState.isLoggedIn) {
             navigateToPedido()
         }
     }

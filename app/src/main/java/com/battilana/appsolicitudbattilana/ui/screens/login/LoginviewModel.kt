@@ -41,7 +41,6 @@ class LoginviewModel @Inject constructor(
                     _uiState.update {
                         it.copy(
                             isLoading = false,
-                            login = response,
                             isLoggedIn = true
                         )
                     }
@@ -85,7 +84,7 @@ class LoginviewModel @Inject constructor(
         viewModelScope.launch {
 
             sessionManager.clearSession()
-            _uiState.update { it.copy(isLoggedIn = false, login = null) }
+            _uiState.update { it.copy(isLoggedIn = false) }
 
             Log.i("Logout", "Sesion cerrada correctamente")
         }
@@ -110,6 +109,5 @@ data class LoginUiState(
     val isLoading: Boolean = false,
     val isLoggedIn: Boolean = false,
     val isEnabledLogin: Boolean = false,
-    val login: LoginResponse? = null,
     val error: String? = null,
 )
